@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelDefinitionResource" load_steps=2 format=3 uid="uid://dvywtjgto8wxj"]
+
+[ext_resource type="Script" uid="uid://c7sehe5jw4rhd" path="res://Resources/LevelResources/LevelDefinitionResource.cs" id="1_i68hp"]
+
+[resource]
+script = ExtResource("1_i68hp")
+Id = "SilverHollowGrit"
+StartingResourceCount = 2
+LevelScenePath = "uid://1qg8ux6cwlsu"
+metadata/_custom_type_script = "uid://c7sehe5jw4rhd"

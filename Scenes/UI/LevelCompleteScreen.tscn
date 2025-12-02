@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://b00o30pqih1cs"]
+
+[ext_resource type="Script" uid="uid://drxm5ugieyv15" path="res://Scenes/UI/LevelCompleteScreen.cs" id="1_5uplf"]
+[ext_resource type="Texture2D" uid="uid://c17rsi5h3elqa" path="res://Assets/UI/RibbonRed3Slides.png" id="1_b5jrc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5uplf"]
+content_margin_left = 44.0
+content_margin_top = 16.0
+content_margin_right = 44.0
+content_margin_bottom = 36.0
+texture = ExtResource("1_b5jrc")
+texture_margin_left = 64.0
+texture_margin_right = 64.0
+axis_stretch_horizontal = 1
+region_rect = Rect2(0, 0, 192, 61)
+
+[node name="LevelCompleteScreen" type="CanvasLayer"]
+script = ExtResource("1_5uplf")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -64
+
+[node name="RibbonContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 61)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_5uplf")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/RibbonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "LEVEL COMPLETE"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+show_behind_parent = true
+layout_mode = 2
+theme_override_constants/margin_left = 46
+theme_override_constants/margin_right = 46
+
+[node name="ScrollContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="NextLevelButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Next Level"

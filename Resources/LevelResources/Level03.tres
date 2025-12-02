@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelDefinitionResource" load_steps=2 format=3 uid="uid://c5pt88t6cdtmr"]
+
+[ext_resource type="Script" uid="uid://c7sehe5jw4rhd" path="res://Resources/LevelResources/LevelDefinitionResource.cs" id="1_3qv65"]
+
+[resource]
+script = ExtResource("1_3qv65")
+Id = "WovenFalseEcho"
+StartingResourceCount = 6
+LevelScenePath = "uid://cn56d78dicqji"
+metadata/_custom_type_script = "uid://c7sehe5jw4rhd"

@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://coci455l2o15i"]
+
+[ext_resource type="PackedScene" uid="uid://b7hgixlwjutyx" path="res://Scenes/Components/BuildingComponent.tscn" id="1_qwyqt"]
+[ext_resource type="PackedScene" uid="uid://ds253jiyryiim" path="res://Scenes/Components/BuildingAnimatorComponent.tscn" id="2_tb53f"]
+[ext_resource type="Texture2D" uid="uid://mbj0ux3jv6gi" path="res://Assets/Buildings/WoodTowerRed.png" id="3_awnvg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dtjo"]
+atlas = ExtResource("3_awnvg")
+region = Rect2(0, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v016h"]
+atlas = ExtResource("3_awnvg")
+region = Rect2(256, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la17m"]
+atlas = ExtResource("3_awnvg")
+region = Rect2(512, 0, 256, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rti0"]
+atlas = ExtResource("3_awnvg")
+region = Rect2(768, 0, 256, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mufk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dtjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v016h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la17m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rti0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="GoblinCamp" type="Node2D"]
+y_sort_enabled = true
+
+[node name="BuildingComponent" parent="." node_paths=PackedStringArray("buildingAnimatorComponent") instance=ExtResource("1_qwyqt")]
+buildingResourcePath = "uid://b3xb42xaqgb7n"
+buildingAnimatorComponent = NodePath("../BuildingAnimatorComponent")
+
+[node name="BuildingAnimatorComponent" parent="." instance=ExtResource("2_tb53f")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BuildingAnimatorComponent"]
+position = Vector2(64, 96)
+sprite_frames = SubResource("SpriteFrames_mufk0")
+autoplay = "default"
+centered = false
+offset = Vector2(-128, -160)

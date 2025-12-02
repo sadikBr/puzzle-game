@@ -1,0 +1,10 @@
+[gd_scene load_steps=5 format=3 uid="uid://brv8bfrhlqr12"]
+
+[ext_resource type="Script" uid="uid://b4k5h74q07jj" path="res://Scenes/Autoloads/LevelManager.cs" id="1_fyn7g"]
+[ext_resource type="Resource" uid="uid://dvywtjgto8wxj" path="res://Resources/LevelResources/Level01.tres" id="2_0u5gn"]
+[ext_resource type="Resource" uid="uid://b5gfmy1gjcv3t" path="res://Resources/LevelResources/Level02.tres" id="3_la8pf"]
+[ext_resource type="Resource" uid="uid://c5pt88t6cdtmr" path="res://Resources/LevelResources/Level03.tres" id="4_2krx4"]
+
+[node name="LevelManager" type="Node"]
+script = ExtResource("1_fyn7g")
+levelDefinitions = Array[Object]([ExtResource("2_0u5gn"), ExtResource("3_la8pf"), ExtResource("4_2krx4")])

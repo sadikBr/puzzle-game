@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=4 format=3 uid="uid://b23nkf48u4ccp"]
+
+[ext_resource type="PackedScene" uid="uid://bnbjx75n0snsi" path="res://Scenes/Buildings/Tower.tscn" id="1_4t60g"]
+[ext_resource type="PackedScene" uid="uid://bgxvs58tsc0lj" path="res://Scenes/Buildings/Sprites/TowerSprite2D.tscn" id="2_8iqab"]
+[ext_resource type="Script" uid="uid://s2aj72775tic" path="res://Resources/BuildingResources/BuildingResource.cs" id="2_ubj2b"]
+
+[resource]
+script = ExtResource("2_ubj2b")
+DisplayName = "Tower"
+Description = "Expands Buildable Area"
+Dimensions = Vector2i(2, 2)
+ResourceCost = 4
+BuildableRadius = 6
+BuildingScene = ExtResource("1_4t60g")
+SpriteScene = ExtResource("2_8iqab")
+metadata/_custom_type_script = "uid://s2aj72775tic"
