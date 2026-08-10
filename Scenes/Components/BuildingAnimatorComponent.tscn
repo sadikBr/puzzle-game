@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://ds253jiyryiim"]
+[gd_scene format=3 uid="uid://ds253jiyryiim"]
 
 [ext_resource type="Script" uid="uid://b0xfq4jrcekun" path="res://Scenes/Components/BuildingAnimatorComponent.cs" id="1_7mh15"]
 [ext_resource type="PackedScene" uid="uid://mjbjs36x5omp" path="res://Scenes/Effects/BuildingImpactParticles.tscn" id="2_3m0wf"]
 [ext_resource type="Texture2D" uid="uid://l224nv5b4xap" path="res://Assets/Buildings/BuildingMask.png" id="2_i7li8"]
 [ext_resource type="PackedScene" uid="uid://b1du5wn1n03eu" path="res://Scenes/Effects/BuildingDestroyParticles.tscn" id="3_rrq1r"]
 
-[node name="BuildingAnimatorComponent" type="Node2D"]
+[node name="BuildingAnimatorComponent" type="Node2D" unique_id=1171611330]
 y_sort_enabled = true
 script = ExtResource("1_7mh15")
-impactParticleScene = ExtResource("2_3m0wf")
-destroyParticleScene = ExtResource("3_rrq1r")
-maskTexture = ExtResource("2_i7li8")
+_impactParticleScene = ExtResource("2_3m0wf")
+_destroyParticleScene = ExtResource("3_rrq1r")
+_maskTexture = ExtResource("2_i7li8")

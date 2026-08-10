@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://coci455l2o15i"]
+[gd_scene format=3 uid="uid://coci455l2o15i"]
 
 [ext_resource type="PackedScene" uid="uid://b7hgixlwjutyx" path="res://Scenes/Components/BuildingComponent.tscn" id="1_qwyqt"]
 [ext_resource type="PackedScene" uid="uid://ds253jiyryiim" path="res://Scenes/Components/BuildingAnimatorComponent.tscn" id="2_tb53f"]
@@ -35,21 +35,21 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6rti0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 10.0
 }]
 
-[node name="GoblinCamp" type="Node2D"]
+[node name="GoblinCamp" type="Node2D" unique_id=501821137]
 y_sort_enabled = true
 
-[node name="BuildingComponent" parent="." node_paths=PackedStringArray("buildingAnimatorComponent") instance=ExtResource("1_qwyqt")]
-buildingResourcePath = "uid://b3xb42xaqgb7n"
-buildingAnimatorComponent = NodePath("../BuildingAnimatorComponent")
+[node name="BuildingComponent" parent="." unique_id=788964477 node_paths=PackedStringArray("_buildingAnimatorComponent") instance=ExtResource("1_qwyqt")]
+_buildingResourcePath = "uid://b3xb42xaqgb7n"
+_buildingAnimatorComponent = NodePath("../BuildingAnimatorComponent")
 
-[node name="BuildingAnimatorComponent" parent="." instance=ExtResource("2_tb53f")]
+[node name="BuildingAnimatorComponent" parent="." unique_id=441014342 instance=ExtResource("2_tb53f")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BuildingAnimatorComponent"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BuildingAnimatorComponent" unique_id=1736945106]
 position = Vector2(64, 96)
 sprite_frames = SubResource("SpriteFrames_mufk0")
 autoplay = "default"

@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg8xllkbgws1j"]
+[gd_scene format=3 uid="uid://dg8xllkbgws1j"]
 
 [ext_resource type="Script" uid="uid://df4jlwgh7w3q6" path="res://Scenes/UI/LevelSelectScreen.cs" id="1_lhiyq"]
 [ext_resource type="PackedScene" uid="uid://q0senga6vyxk" path="res://Scenes/UI/LevelSelectSection.tscn" id="1_vxida"]
 
-[node name="LevelSelectScreen" type="MarginContainer"]
+[node name="LevelSelectScreen" type="MarginContainer" unique_id=1785544484]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,28 +14,28 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("1_lhiyq")
-levelSelectSectionScene = ExtResource("1_vxida")
+_levelSelectSectionScene = ExtResource("1_vxida")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=546333249]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1474768572]
 layout_mode = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer" unique_id=451207249]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 4
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=944688537]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
