@@ -1,4 +1,5 @@
 using Game.Components;
+
 using Godot;
 
 namespace Game.Autoloads;

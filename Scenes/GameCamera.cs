@@ -7,14 +7,14 @@ public partial class GameCamera : Camera2D
     private const float PAN_SPEED = 500;
     private const int TILE_SIZE = 64;
 
-    private readonly StringName ACTION_PAN_LEFT = new StringName("pan_left");
-    private readonly StringName ACTION_PAN_RIGHT = new StringName("pan_right");
-    private readonly StringName ACTION_PAN_UP = new StringName("pan_up");
-    private readonly StringName ACTION_PAN_DOWN = new StringName("pan_down");
+    private readonly StringName _actionPanLeft = new("pan_left");
+    private readonly StringName _actionPanRight = new("pan_right");
+    private readonly StringName _actionPanUp = new("pan_up");
+    private readonly StringName _actionPanDown = new("pan_down");
 
     public override void _Process(double delta)
     {
-        var movementVector = Input.GetVector(ACTION_PAN_LEFT, ACTION_PAN_RIGHT, ACTION_PAN_UP, ACTION_PAN_DOWN);
+        var movementVector = Input.GetVector(_actionPanLeft, _actionPanRight, _actionPanUp, _actionPanDown);
 
         GlobalPosition = GetScreenCenterPosition();
         GlobalPosition += movementVector * PAN_SPEED * (float)delta;

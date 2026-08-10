@@ -1,6 +1,7 @@
 using Game.Managers;
 using Game.Resources.LevelResources;
 using Game.UI;
+
 using Godot;
 
 namespace Game;
@@ -8,45 +9,45 @@ namespace Game;
 public partial class BaseLevel : Node
 {
     [Export]
-    private PackedScene levelCompleteScreenScene;
+    private PackedScene _levelCompleteScreenScene;
     [Export]
-    private LevelDefinitionResource levelDefinitionResource;
+    private LevelDefinitionResource _levelDefinitionResource;
 
-    private GridManager gridManager;
-    private GoldMine goldMine;
-    private GameCamera gameCamera;
-    private TileMapLayer baseTerrainTileMapLayer;
-    private Node2D baseBuilding;
-    private GameUI gameUI;
-    private BuildingManager buildingManager;
+    private GridManager _gridManager;
+    private GoldMine _goldMine;
+    private GameCamera _gameCamera;
+    private TileMapLayer _baseTerrainTileMapLayer;
+    private Node2D _baseBuilding;
+    private GameUI _gameUI;
+    private BuildingManager _buildingManager;
 
     public override void _Ready()
     {
-        gridManager = GetNode<GridManager>("GridManager");
-        goldMine = GetNode<GoldMine>("%GoldMine");
-        gameCamera = GetNode<GameCamera>("GameCamera");
-        baseTerrainTileMapLayer = GetNode<TileMapLayer>("%BaseTerrainTileMapLayer");
-        baseBuilding = GetNode<Node2D>("%Base");
-        gameUI = GetNode<GameUI>("GameUI");
-        buildingManager = GetNode<BuildingManager>("BuildingManager");
+        _gridManager = GetNode<GridManager>("GridManager");
+        _goldMine = GetNode<GoldMine>("%GoldMine");
+        _gameCamera = GetNode<GameCamera>("GameCamera");
+        _baseTerrainTileMapLayer = GetNode<TileMapLayer>("%BaseTerrainTileMapLayer");
+        _baseBuilding = GetNode<Node2D>("%Base");
+        _gameUI = GetNode<GameUI>("GameUI");
+        _buildingManager = GetNode<BuildingManager>("BuildingManager");
 
-        buildingManager.SetStartingResourceCount(levelDefinitionResource.StartingResourceCount);
+        _buildingManager.SetStartingResourceCount(_levelDefinitionResource.StartingResourceCount);
 
-        gameCamera.SetBoundingRect(baseTerrainTileMapLayer.GetUsedRect());
-        gameCamera.CenterOnPosition(baseBuilding.GlobalPosition);
+        _gameCamera.SetBoundingRect(_baseTerrainTileMapLayer.GetUsedRect());
+        _gameCamera.CenterOnPosition(_baseBuilding.GlobalPosition);
 
-        gridManager.GridStateUpdated += OnGridStateUpdated;
+        _gridManager.GridStateUpdated += OnGridStateUpdated;
     }
 
     private void OnGridStateUpdated()
     {
-        var goldMineTilePosition = gridManager.ConvertWorldPositionToTilePosition(goldMine.GlobalPosition);
-        if (gridManager.IsTilePositionInAnyBuildingRadius(goldMineTilePosition))
+        var goldMineTilePosition = _gridManager.ConvertWorldPositionToTilePosition(_goldMine.GlobalPosition);
+        if (_gridManager.IsTilePositionInAnyBuildingRadius(goldMineTilePosition))
         {
-            var levelCompleteScreen = levelCompleteScreenScene.Instantiate<LevelCompleteScreen>();
+            var levelCompleteScreen = _levelCompleteScreenScene.Instantiate<LevelCompleteScreen>();
             AddChild(levelCompleteScreen);
-            goldMine.SetActive();
-            gameUI.HideUI();
+            _goldMine.SetActive();
+            _gameUI.HideUI();
         }
     }
 }

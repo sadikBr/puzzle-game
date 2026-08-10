@@ -1,4 +1,5 @@
 using Game.Autoloads;
+
 using Godot;
 
 namespace Game.UI;
@@ -9,22 +10,22 @@ public partial class LevelSelectScreen : MarginContainer
     public delegate void BackPressedEventHandler();
 
     [Export]
-    private PackedScene levelSelectSectionScene;
+    private PackedScene _levelSelectSectionScene;
 
-    private GridContainer gridContainer;
-    private Button backButton;
+    private GridContainer _gridContainer;
+    private Button _backButton;
 
     public override void _Ready()
     {
-        gridContainer = GetNode<GridContainer>("%GridContainer");
-        backButton = GetNode<Button>("BackButton");
+        _gridContainer = GetNode<GridContainer>("%GridContainer");
+        _backButton = GetNode<Button>("BackButton");
 
         var levelDefinitions = LevelManager.GetLevelDefinitions();
         for (int i = 0; i < levelDefinitions.Length; i++)
         {
             var levelDefinition = levelDefinitions[i];
-            var levelSelectSection = levelSelectSectionScene.Instantiate<LevelSelectSection>();
-            gridContainer.AddChild(levelSelectSection);
+            var levelSelectSection = _levelSelectSectionScene.Instantiate<LevelSelectSection>();
+            _gridContainer.AddChild(levelSelectSection);
 
             levelSelectSection.SetLevelDefinition(levelDefinition);
             levelSelectSection.SetLevelIndex(i);
@@ -32,7 +33,7 @@ public partial class LevelSelectScreen : MarginContainer
             levelSelectSection.LevelSelected += OnLevelSelected;
         }
 
-        backButton.Pressed += OnBackButtonPressed;
+        _backButton.Pressed += OnBackButtonPressed;
     }
 
     private void OnLevelSelected(int levelIndex)

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+
 using Game.Autoloads;
 using Game.Resources.BuildingResources;
+
 using Godot;
 
 namespace Game.Components;
@@ -9,15 +11,15 @@ namespace Game.Components;
 public partial class BuildingComponent : Node2D
 {
     [Export(PropertyHint.File, "*.tres")]
-    private string buildingResourcePath;
+    private string _buildingResourcePath;
     [Export]
-    private BuildingAnimatorComponent buildingAnimatorComponent;
+    private BuildingAnimatorComponent _buildingAnimatorComponent;
 
     public BuildingResource BuildingResource { get; private set; }
     public bool IsDestroying { get; private set; }
     public bool IsDisabled { get; private set; }
 
-    private HashSet<Vector2I> occupiedTiles = new();
+    private readonly HashSet<Vector2I> _occupiedTiles = [];
 
     public static IEnumerable<BuildingComponent> GetValidBuilidingComponents(Node node)
     {
@@ -33,14 +35,14 @@ public partial class BuildingComponent : Node2D
 
     public override void _Ready()
     {
-        if (buildingResourcePath != null)
+        if (_buildingResourcePath != null)
         {
-            BuildingResource = GD.Load<BuildingResource>(buildingResourcePath);
+            BuildingResource = GD.Load<BuildingResource>(_buildingResourcePath);
         }
 
-        if (buildingAnimatorComponent != null)
+        if (_buildingAnimatorComponent != null)
         {
-            buildingAnimatorComponent.DestroyAnimationFinished += OnDestroyAnimationFinished;
+            _buildingAnimatorComponent.DestroyAnimationFinished += OnDestroyAnimationFinished;
         }
 
         AddToGroup(nameof(BuildingComponent));
@@ -55,7 +57,7 @@ public partial class BuildingComponent : Node2D
 
     public HashSet<Vector2I> GetOccupiedCellPositions()
     {
-        return occupiedTiles.ToHashSet();
+        return [.. _occupiedTiles];
     }
 
     public Rect2I GetTileArea()
@@ -66,7 +68,7 @@ public partial class BuildingComponent : Node2D
 
     public bool IsTileInBuildingArea(Vector2I tilePosition)
     {
-        return occupiedTiles.Contains(tilePosition);
+        return _occupiedTiles.Contains(tilePosition);
     }
 
     public void Disable()
@@ -87,9 +89,9 @@ public partial class BuildingComponent : Node2D
     {
         IsDestroying = true;
         GameEvents.EmitBuildingDestroyed(this);
-        buildingAnimatorComponent?.PlayOutAnimation();
+        _buildingAnimatorComponent?.PlayOutAnimation();
 
-        if (buildingAnimatorComponent == null)
+        if (_buildingAnimatorComponent == null)
         {
             Owner.QueueFree();
         }
@@ -102,7 +104,7 @@ public partial class BuildingComponent : Node2D
         {
             for (int y = gridPosition.Y; y < gridPosition.Y + BuildingResource.Dimensions.Y; y++)
             {
-                occupiedTiles.Add(new Vector2I(x, y));
+                _occupiedTiles.Add(new Vector2I(x, y));
             }
         }
     }

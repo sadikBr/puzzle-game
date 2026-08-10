@@ -1,5 +1,6 @@
 using Game.Managers;
 using Game.Resources.BuildingResources;
+
 using Godot;
 
 namespace Game.UI;
@@ -9,23 +10,23 @@ public partial class GameUI : CanvasLayer
     [Signal]
     public delegate void BuildingResourceSelectedEventHandler(BuildingResource buildingResource);
 
-    private VBoxContainer buildingSectionContainer;
-    private Label resourceLabel;
+    private VBoxContainer _buildingSectionContainer;
+    private Label _resourceLabel;
 
     [Export]
-    private BuildingManager buildingManager;
+    private BuildingManager _buildingManager;
     [Export]
-    private BuildingResource[] buildingResources;
+    private BuildingResource[] _buildingResources;
     [Export]
-    private PackedScene buildingSectionScene;
+    private PackedScene _buildingSectionScene;
 
     public override void _Ready()
     {
-        buildingSectionContainer = GetNode<VBoxContainer>("%BuildingSectionContainer");
-        resourceLabel = GetNode<Label>("%ResourceLabel");
+        _buildingSectionContainer = GetNode<VBoxContainer>("%BuildingSectionContainer");
+        _resourceLabel = GetNode<Label>("%ResourceLabel");
         CreateBuildingSections();
 
-        buildingManager.AvailableResourceCountChanged += OnAvailableResourceCountChanged;
+        _buildingManager.AvailableResourceCountChanged += OnAvailableResourceCountChanged;
     }
 
     public void HideUI()
@@ -35,10 +36,10 @@ public partial class GameUI : CanvasLayer
 
     private void CreateBuildingSections()
     {
-        foreach (var buildingResource in buildingResources)
+        foreach (var buildingResource in _buildingResources)
         {
-            var buildingSection = buildingSectionScene.Instantiate<BuildingSection>();
-            buildingSectionContainer.AddChild(buildingSection);
+            var buildingSection = _buildingSectionScene.Instantiate<BuildingSection>();
+            _buildingSectionContainer.AddChild(buildingSection);
 
             buildingSection.SetBuildingResource(buildingResource);
             buildingSection.SelectButtonPressed += () => EmitSignal(SignalName.BuildingResourceSelected, buildingResource);
@@ -47,6 +48,6 @@ public partial class GameUI : CanvasLayer
 
     private void OnAvailableResourceCountChanged(int availableResourceCount)
     {
-        resourceLabel.Text = $"{availableResourceCount}";
+        _resourceLabel.Text = $"{availableResourceCount}";
     }
 }

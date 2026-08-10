@@ -1,5 +1,6 @@
-using Godot;
 using System.Linq;
+
+using Godot;
 
 namespace Game.Components;
 
@@ -9,15 +10,15 @@ public partial class BuildingAnimatorComponent : Node2D
     public delegate void DestroyAnimationFinishedEventHandler();
 
     [Export]
-    private PackedScene impactParticleScene;
+    private PackedScene _impactParticleScene;
     [Export]
-    private PackedScene destroyParticleScene;
+    private PackedScene _destroyParticleScene;
     [Export]
-    private Texture2D maskTexture;
+    private Texture2D _maskTexture;
 
-    private Tween activeTween;
-    private Node2D animationRootNode;
-    private Sprite2D maskNode;
+    private Tween _activeTween;
+    private Node2D _animationRootNode;
+    private Sprite2D _maskNode;
 
     public override void _Ready()
     {
@@ -27,70 +28,69 @@ public partial class BuildingAnimatorComponent : Node2D
 
     public void PlayInAnimation()
     {
-        if (animationRootNode == null) return;
+        if (_animationRootNode == null) return;
 
-        if (activeTween != null && activeTween.IsValid())
+        if (_activeTween != null && _activeTween.IsValid())
         {
-            activeTween.Kill();
+            _activeTween.Kill();
         }
 
-        activeTween = CreateTween();
-        activeTween
-            .TweenProperty(animationRootNode, "position", Vector2.Zero, .3f)
+        _activeTween = CreateTween();
+        _activeTween
+            .TweenProperty(_animationRootNode, "position", Vector2.Zero, .3f)
             .SetTrans(Tween.TransitionType.Quad)
             .SetEase(Tween.EaseType.In)
             .From(Vector2.Up * 128);
-        activeTween.TweenCallback(Callable.From(() =>
+        _activeTween.TweenCallback(Callable.From(() =>
         {
-            var impactParticles = impactParticleScene.Instantiate<Node2D>();
+            var impactParticles = _impactParticleScene.Instantiate<Node2D>();
             Owner.GetParent().AddChild(impactParticles);
             impactParticles.GlobalPosition = GlobalPosition;
         }));
-        activeTween
-            .TweenProperty(animationRootNode, "position", Vector2.Up * 16, .1f)
+        _activeTween
+            .TweenProperty(_animationRootNode, "position", Vector2.Up * 16, .1f)
             .SetTrans(Tween.TransitionType.Quad)
             .SetEase(Tween.EaseType.Out);
-        activeTween
-            .TweenProperty(animationRootNode, "position", Vector2.Zero, .1f)
+        _activeTween
+            .TweenProperty(_animationRootNode, "position", Vector2.Zero, .1f)
             .SetTrans(Tween.TransitionType.Quad)
             .SetEase(Tween.EaseType.In);
     }
 
     public void PlayOutAnimation()
     {
-        if (animationRootNode == null) return;
+        if (_animationRootNode == null) return;
 
-        if (activeTween != null && activeTween.IsValid())
+        if (_activeTween != null && _activeTween.IsValid())
         {
-            activeTween.Kill();
+            _activeTween.Kill();
         }
 
-        animationRootNode.Position = Vector2.Zero;
+        _animationRootNode.Position = Vector2.Zero;
 
-        maskNode.ClipChildren = ClipChildrenMode.Only;
-        maskNode.Texture = maskTexture;
+        _maskNode.ClipChildren = ClipChildrenMode.Only;
+        _maskNode.Texture = _maskTexture;
 
-        var destroyParticles = destroyParticleScene.Instantiate<Node2D>();
+        var destroyParticles = _destroyParticleScene.Instantiate<Node2D>();
         Owner.GetParent().AddChild(destroyParticles);
         destroyParticles.GlobalPosition = GlobalPosition;
 
-        activeTween = CreateTween();
-        activeTween.TweenProperty(animationRootNode, "rotation_degrees", -5, .1f);
-        activeTween.TweenProperty(animationRootNode, "rotation_degrees", 5, .1f);
-        activeTween.TweenProperty(animationRootNode, "rotation_degrees", -2, .1f);
-        activeTween.TweenProperty(animationRootNode, "rotation_degrees", 2, .1f);
-        activeTween.TweenProperty(animationRootNode, "rotation_degrees", 0, .1f);
+        _activeTween = CreateTween();
+        _activeTween.TweenProperty(_animationRootNode, "rotation_degrees", -5, .1f);
+        _activeTween.TweenProperty(_animationRootNode, "rotation_degrees", 5, .1f);
+        _activeTween.TweenProperty(_animationRootNode, "rotation_degrees", -2, .1f);
+        _activeTween.TweenProperty(_animationRootNode, "rotation_degrees", 2, .1f);
+        _activeTween.TweenProperty(_animationRootNode, "rotation_degrees", 0, .1f);
 
-        activeTween.TweenProperty(animationRootNode, "position", Vector2.Down * 300, .4f)
+        _activeTween.TweenProperty(_animationRootNode, "position", Vector2.Down * 300, .4f)
             .SetTrans(Tween.TransitionType.Quart)
             .SetEase(Tween.EaseType.In);
-        activeTween.Finished += () => EmitSignal(SignalName.DestroyAnimationFinished);
+        _activeTween.Finished += () => EmitSignal(SignalName.DestroyAnimationFinished);
     }
 
     private void SetupNodes()
     {
-        var spriteNode = GetChildren().FirstOrDefault() as Node2D;
-        if (spriteNode == null)
+        if (GetChildren().FirstOrDefault() is not Node2D spriteNode)
         {
             return;
         }
@@ -98,17 +98,17 @@ public partial class BuildingAnimatorComponent : Node2D
         RemoveChild(spriteNode);
         Position = new Vector2(spriteNode.Position.X, spriteNode.Position.Y);
 
-        maskNode = new Sprite2D
+        _maskNode = new Sprite2D
         {
             Centered = false,
             Offset = new Vector2(-160, -256),
         };
-        AddChild(maskNode);
+        AddChild(_maskNode);
 
-        animationRootNode = new Node2D();
-        maskNode.AddChild(animationRootNode);
+        _animationRootNode = new Node2D();
+        _maskNode.AddChild(_animationRootNode);
 
-        animationRootNode.AddChild(spriteNode);
+        _animationRootNode.AddChild(spriteNode);
         spriteNode.Position = Vector2.Zero;
     }
 }

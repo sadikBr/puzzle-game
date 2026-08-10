@@ -4,30 +4,30 @@ namespace Game.Buildings;
 
 public partial class BuildingGhost : Node2D
 {
-    private Node2D topLeft;
-    private Node2D topRight;
-    private Node2D bottomLeft;
-    private Node2D bottomRight;
-    private Node2D upDownRoot;
-    private Node2D spriteRoot;
+    private Node2D _topLeft;
+    private Node2D _topRight;
+    private Node2D _bottomLeft;
+    private Node2D _bottomRight;
+    private Node2D _upDownRoot;
+    private Node2D _spriteRoot;
 
-    private Tween spriteTween;
+    private Tween _spriteTween;
 
     public override void _Ready()
     {
-        topLeft = GetNode<Node2D>("TopLeft");
-        bottomLeft = GetNode<Node2D>("BottomLeft");
-        topRight = GetNode<Node2D>("TopRight");
-        bottomRight = GetNode<Node2D>("BottomRight");
-        upDownRoot = GetNode<Node2D>("%UpDownRoot");
-        spriteRoot = GetNode<Node2D>("SpriteRoot");
+        _topLeft = GetNode<Node2D>("TopLeft");
+        _bottomLeft = GetNode<Node2D>("BottomLeft");
+        _topRight = GetNode<Node2D>("TopRight");
+        _bottomRight = GetNode<Node2D>("BottomRight");
+        _upDownRoot = GetNode<Node2D>("%UpDownRoot");
+        _spriteRoot = GetNode<Node2D>("SpriteRoot");
 
         var upDownTween = CreateTween();
         upDownTween.SetLoops(0);
-        upDownTween.TweenProperty(upDownRoot, "position", Vector2.Down * 6, .2f)
+        upDownTween.TweenProperty(_upDownRoot, "position", Vector2.Down * 6, .2f)
             .SetEase(Tween.EaseType.InOut)
             .SetTrans(Tween.TransitionType.Quad);
-        upDownTween.TweenProperty(upDownRoot, "position", Vector2.Up * 6, .2f)
+        upDownTween.TweenProperty(_upDownRoot, "position", Vector2.Up * 6, .2f)
             .SetEase(Tween.EaseType.InOut)
             .SetTrans(Tween.TransitionType.Quad);
     }
@@ -35,36 +35,36 @@ public partial class BuildingGhost : Node2D
     public void SetInvalid()
     {
         Modulate = Colors.Red;
-        upDownRoot.Modulate = Modulate;
+        _upDownRoot.Modulate = Modulate;
     }
 
     public void SetValid()
     {
         Modulate = Colors.White;
-        upDownRoot.Modulate = Modulate;
+        _upDownRoot.Modulate = Modulate;
     }
 
     public void SetDimensions(Vector2I dimensions)
     {
-        bottomLeft.Position = dimensions * new Vector2I(0, 64);
-        topRight.Position = dimensions * new Vector2I(64, 0);
-        bottomRight.Position = dimensions * new Vector2I(64, 64);
+        _bottomLeft.Position = dimensions * new Vector2I(0, 64);
+        _topRight.Position = dimensions * new Vector2I(64, 0);
+        _bottomRight.Position = dimensions * new Vector2I(64, 64);
     }
 
     public void AddSpriteNode(Node2D spriteNode)
     {
-        upDownRoot.AddChild(spriteNode);
+        _upDownRoot.AddChild(spriteNode);
     }
 
     public void DoHoverAnimation()
     {
-        if (spriteTween != null && spriteTween.IsValid())
+        if (_spriteTween != null && _spriteTween.IsValid())
         {
-            spriteTween.Kill();
+            _spriteTween.Kill();
         }
 
-        spriteTween = CreateTween();
-        spriteTween.TweenProperty(spriteRoot, "global_position", GlobalPosition, .3f)
+        _spriteTween = CreateTween();
+        _spriteTween.TweenProperty(_spriteRoot, "global_position", GlobalPosition, .3f)
             .SetTrans(Tween.TransitionType.Bounce)
             .SetEase(Tween.EaseType.Out);
     }

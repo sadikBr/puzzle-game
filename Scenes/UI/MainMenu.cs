@@ -4,40 +4,40 @@ namespace Game.UI;
 
 public partial class MainMenu : Node
 {
-    private Button playButton;
-    private Button optionsButton;
-    private Button quitButton;
+    private Button _playButton;
+    private Button _optionsButton;
+    private Button _quitButton;
 
-    private Control mainMenuContainer;
-    private LevelSelectScreen levelSelectScreen;
+    private Control _mainMenuContainer;
+    private LevelSelectScreen _levelSelectScreen;
 
     public override void _Ready()
     {
-        playButton = GetNode<Button>("%PlayButton");
+        _playButton = GetNode<Button>("%PlayButton");
         // optionsButton = GetNode<Button>("%OptionsButton");
-        quitButton = GetNode<Button>("%QuitButton");
+        _quitButton = GetNode<Button>("%QuitButton");
 
-        mainMenuContainer = GetNode<Control>("%MainMenuContainer");
-        levelSelectScreen = GetNode<LevelSelectScreen>("%LevelSelectScreen");
+        _mainMenuContainer = GetNode<Control>("%MainMenuContainer");
+        _levelSelectScreen = GetNode<LevelSelectScreen>("%LevelSelectScreen");
 
-        levelSelectScreen.Visible = false;
-        mainMenuContainer.Visible = true;
+        _levelSelectScreen.Visible = false;
+        _mainMenuContainer.Visible = true;
 
-        playButton.Pressed += OnPlayButtonPressed;
-        quitButton.Pressed += OnQuitButtonPressed;
-        levelSelectScreen.BackPressed += OnLevelSelectBackPressed;
+        _playButton.Pressed += OnPlayButtonPressed;
+        _quitButton.Pressed += OnQuitButtonPressed;
+        _levelSelectScreen.BackPressed += OnLevelSelectBackPressed;
     }
 
     private void OnPlayButtonPressed()
     {
-        mainMenuContainer.Visible = false;
-        levelSelectScreen.Visible = true;
+        _mainMenuContainer.Visible = false;
+        _levelSelectScreen.Visible = true;
     }
 
     private void OnLevelSelectBackPressed()
     {
-        levelSelectScreen.Visible = false;
-        mainMenuContainer.Visible = true;
+        _levelSelectScreen.Visible = false;
+        _mainMenuContainer.Visible = true;
     }
 
     private void OnQuitButtonPressed()
