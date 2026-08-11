@@ -69,10 +69,7 @@ public partial class BuildingManager : Node
                 {
                     ChangeState(State.Normal);
                 }
-                else if (
-                    _toPlaceBuildingResource != null &&
-                    @event.IsActionPressed(_actionBuild) &&
-                    IsBuildingPlaceableAtArea(_hoveredGridArea))
+                else if (_toPlaceBuildingResource != null && @event.IsActionPressed(_actionBuild))
                 {
                     PlaceBuildingAtHoveredCellPosition();
                 }
@@ -147,6 +144,18 @@ public partial class BuildingManager : Node
 
     private void PlaceBuildingAtHoveredCellPosition()
     {
+        if (!CanAffordBuilding())
+        {
+            FloatingTextManager.ShowMessage("Not enough resources!");
+            return;
+        }
+
+        if (!IsBuildingPlaceableAtArea(_hoveredGridArea))
+        {
+            FloatingTextManager.ShowMessage("Invalid placement!");
+            return;
+        }
+
         Node2D building = _toPlaceBuildingResource.BuildingScene.Instantiate<Node2D>();
         _ySortRoot.AddChild(building);
 
@@ -165,7 +174,11 @@ public partial class BuildingManager : Node
             .FirstOrDefault((buildingComponent) => buildingComponent.BuildingResource.IsDeletable && buildingComponent.IsTileInBuildingArea(_hoveredGridArea.Position));
 
         if (buildingComponent == null) return;
-        if (!_gridManager.CanDestroyBuilding(buildingComponent)) return;
+        if (!_gridManager.CanDestroyBuilding(buildingComponent))
+        {
+            FloatingTextManager.ShowMessage("Can't destroy!");
+            return;
+        }
 
         _currentlyUsedResourceCount -= buildingComponent.BuildingResource.ResourceCost;
         buildingComponent.Destroy();
@@ -182,11 +195,16 @@ public partial class BuildingManager : Node
         _buildingGhost = null;
     }
 
+    private bool CanAffordBuilding()
+    {
+        return AvailableResourceCount >= _toPlaceBuildingResource.ResourceCost;
+    }
+
     private bool IsBuildingPlaceableAtArea(Rect2I tileArea)
     {
         var allTilesBuildable = _gridManager.IsTileAreaBuildable(tileArea, _toPlaceBuildingResource.IsAttackBuilding());
 
-        return allTilesBuildable && AvailableResourceCount >= _toPlaceBuildingResource.ResourceCost;
+        return allTilesBuildable && CanAffordBuilding();
     }
 
     // private List<Vector2I> GetTilePositionsInTileArea(Rect2I tileArea)
