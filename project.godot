@@ -25,12 +25,14 @@ config/icon="res://icon.svg"
 GameEvents="*res://Scenes/Autoloads/GameEvents.tscn"
 LevelManager="*res://Scenes/Autoloads/LevelManager.tscn"
 SaveManager="*uid://bacdwtv1wg28y"
+SettingsManager="*uid://2nr1n7ur6ok0"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="canvas_items"
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 
 [dotnet]
 
