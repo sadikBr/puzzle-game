@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1h1h81aqmo0i"
-path="res://.godot/imported/HighlightTile.png-688cc94cd4bfb23083591bb1d3e6d4c9.ctex"
+uid="uid://dfqt3p5b1qiup"
+path="res://.godot/imported/check.png-fc534be77ea8d9a3bfc5a5db5d3f52cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Effects/HighlightTile.png"
-dest_files=["res://.godot/imported/HighlightTile.png-688cc94cd4bfb23083591bb1d3e6d4c9.ctex"]
+source_file="res://Assets/UI/check.png"
+dest_files=["res://.godot/imported/check.png-fc534be77ea8d9a3bfc5a5db5d3f52cc.ctex"]
 
 [params]
 

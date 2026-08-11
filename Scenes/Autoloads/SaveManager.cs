@@ -23,13 +23,19 @@ public partial class SaveManager : Node
         }
     }
 
+    public static bool IsLevelCompleted(string levelId)
+    {
+        s_saveData.LevelCompletionStatus.TryGetValue(levelId, out var data);
+        return data?.IsCompleted ?? false;
+    }
+
     public static void SaveLevelCompletion(LevelDefinitionResource levelDefinitionResource)
     {
         s_saveData.SaveLevelCompletion(levelDefinitionResource.Id, true);
         WriteSaveData();
     }
 
-    public static void WriteSaveData()
+    private static void WriteSaveData()
     {
         var dataString = JsonConvert.SerializeObject(s_saveData);
 
