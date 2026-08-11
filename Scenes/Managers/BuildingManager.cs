@@ -161,10 +161,11 @@ public partial class BuildingManager : Node
 
     private void DestroyBuildingAtHoveredCellPosition()
     {
-        BuildingComponent buildingComponent = BuildingComponent.GetValidBuilidingComponents(this)
+        BuildingComponent buildingComponent = BuildingComponent.GetValidBuildingComponents(this)
             .FirstOrDefault((buildingComponent) => buildingComponent.BuildingResource.IsDeletable && buildingComponent.IsTileInBuildingArea(_hoveredGridArea.Position));
 
         if (buildingComponent == null) return;
+        if (!_gridManager.CanDestroyBuilding(buildingComponent)) return;
 
         _currentlyUsedResourceCount -= buildingComponent.BuildingResource.ResourceCost;
         buildingComponent.Destroy();

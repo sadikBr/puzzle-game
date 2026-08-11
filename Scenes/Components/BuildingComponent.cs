@@ -21,7 +21,7 @@ public partial class BuildingComponent : Node2D
 
     private readonly HashSet<Vector2I> _occupiedTiles = [];
 
-    public static IEnumerable<BuildingComponent> GetValidBuilidingComponents(Node node)
+    public static IEnumerable<BuildingComponent> GetValidBuildingComponents(Node node)
     {
         return node.GetTree()
             .GetNodesInGroup(nameof(BuildingComponent)).Cast<BuildingComponent>()
@@ -30,7 +30,7 @@ public partial class BuildingComponent : Node2D
 
     public static IEnumerable<BuildingComponent> GetDangerBuildingComponents(Node node)
     {
-        return GetValidBuilidingComponents(node).Where(buildingComponent => buildingComponent.BuildingResource.IsDangerBuilding());
+        return GetValidBuildingComponents(node).Where(buildingComponent => buildingComponent.BuildingResource.IsDangerBuilding());
     }
 
     public override void _Ready()
