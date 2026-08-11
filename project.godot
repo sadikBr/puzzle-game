@@ -16,6 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="PuzzleGame"
 run/main_scene="uid://c3jty3kwsf8al"
+config/custom_user_dir_name="PuzzleGame"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -23,6 +24,7 @@ config/icon="res://icon.svg"
 
 GameEvents="*res://Scenes/Autoloads/GameEvents.tscn"
 LevelManager="*res://Scenes/Autoloads/LevelManager.tscn"
+SaveManager="*uid://bacdwtv1wg28y"
 
 [display]
 
