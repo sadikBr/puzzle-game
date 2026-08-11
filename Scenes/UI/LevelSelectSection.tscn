@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://q0senga6vyxk"]
+[gd_scene format=3 uid="uid://q0senga6vyxk"]
 
 [ext_resource type="Script" uid="uid://b0up20djmscyp" path="res://Scenes/UI/LevelSelectSection.cs" id="1_0n7ri"]
 [ext_resource type="Texture2D" uid="uid://b5ffu8cw536ie" path="res://Assets/UI/WoodIcon.png" id="1_2em4u"]
@@ -7,47 +7,49 @@
 atlas = ExtResource("1_2em4u")
 region = Rect2(39, 72, 32, 28)
 
-[node name="LevelSelectSection" type="PanelContainer"]
+[node name="LevelSelectSection" type="PanelContainer" unique_id=1836283483]
+custom_minimum_size = Vector2(250, 0)
 theme_type_variation = &"PanelContainerAlternate"
 script = ExtResource("1_0n7ri")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1870499482]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1533696162]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1160739977]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="LevelNumberLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="LevelNumberLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1961556421]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Level 1"
+horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=609743893]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1155017799]
 layout_mode = 2
 texture = SubResource("AtlasTexture_lhiyq")
 stretch_mode = 3
 
-[node name="ResourceCountLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ResourceCountLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1558825816]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "4"
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=702920969]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Select"
