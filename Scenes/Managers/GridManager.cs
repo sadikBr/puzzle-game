@@ -163,33 +163,36 @@ public partial class GridManager : Node
 
     public bool CanDestroyBuilding(BuildingComponent toDestroyBuildingComponent)
     {
-        if (toDestroyBuildingComponent.BuildingResource.BuildableRadius > 0)
-        {
-            var dependentBuildings = BuildingComponent.GetValidBuildingComponents(this)
-                .Where(buildingComponent =>
-                {
-                    if (buildingComponent == toDestroyBuildingComponent) return false;
-                    if (buildingComponent.BuildingResource.IsBase) return false;
+        return toDestroyBuildingComponent.BuildingResource.BuildableRadius == 0 ||
+            !WillBuildingDestructionCreateOrphanBuildings(toDestroyBuildingComponent) &&
+            IsBuildingNetworkConnected(toDestroyBuildingComponent);
+    }
 
-                    var anyTilesInRadius = buildingComponent.GetTileArea().ToTiles()
-                        .Any(tilePosition => _buildingToBuildableTiles[toDestroyBuildingComponent].Contains(tilePosition));
-                    return anyTilesInRadius;
-                });
-
-            var allBuildingsStillValid = dependentBuildings.All(dependentBuilding =>
+    private bool WillBuildingDestructionCreateOrphanBuildings(BuildingComponent toDestroyBuildingComponent)
+    {
+        var dependentBuildings = BuildingComponent.GetNonDangerBuildingComponents(this)
+            .Where(buildingComponent =>
             {
-                var tilesForBuilding = dependentBuilding.GetTileArea().ToTiles();
-                return tilesForBuilding.All(tilePosition =>
-                {
-                    var tileIsInSet = _buildingToBuildableTiles.Keys.Where(key => key != toDestroyBuildingComponent && key != dependentBuilding)
-                        .Any(buildingComponent => _buildingToBuildableTiles[buildingComponent].Contains(tilePosition));
-                    return tileIsInSet;
-                });
+                if (buildingComponent == toDestroyBuildingComponent) return false;
+                if (buildingComponent.BuildingResource.IsBase) return false;
+
+                var anyTilesInRadius = buildingComponent.GetTileArea().ToTiles()
+                    .Any(tilePosition => _buildingToBuildableTiles[toDestroyBuildingComponent].Contains(tilePosition));
+                return anyTilesInRadius;
             });
 
-            return allBuildingsStillValid && IsBuildingNetworkConnected(toDestroyBuildingComponent);
-        }
-        return true;
+        var allBuildingsStillValid = dependentBuildings.All(dependentBuilding =>
+        {
+            var tilesForBuilding = dependentBuilding.GetTileArea().ToTiles();
+            var buildingsToCheck = _buildingToBuildableTiles.Keys.Where(key => key != toDestroyBuildingComponent && key != dependentBuilding);
+            return tilesForBuilding.All(tilePosition =>
+            {
+                var tileIsInSet = buildingsToCheck.Any(buildingComponent => _buildingToBuildableTiles[buildingComponent].Contains(tilePosition));
+                return tileIsInSet;
+            });
+        });
+
+        return !allBuildingsStillValid;
     }
 
     private bool IsBuildingNetworkConnected(BuildingComponent toDestroyBuildingComponent)
@@ -209,14 +212,14 @@ public partial class GridManager : Node
 
     private void VisitAllConnectedBuildings(BuildingComponent rootBuilding, BuildingComponent excludeBuilding, HashSet<BuildingComponent> visitedBuildings)
     {
-        var dependentBuildings = BuildingComponent.GetValidBuildingComponents(this)
+        var dependentBuildings = BuildingComponent.GetNonDangerBuildingComponents(this)
             .Where(buildingComponent =>
             {
                 if (buildingComponent.BuildingResource.BuildableRadius == 0) return false;
                 if (visitedBuildings.Contains(buildingComponent)) return false;
 
                 var anyTilesInRadius = buildingComponent.GetTileArea().ToTiles()
-                    .Any(tilePosition => _buildingToBuildableTiles[rootBuilding].Contains(tilePosition));
+                    .All(tilePosition => _buildingToBuildableTiles[rootBuilding].Contains(tilePosition));
                 return buildingComponent != excludeBuilding && anyTilesInRadius;
             }).ToList();
 
