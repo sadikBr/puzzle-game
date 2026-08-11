@@ -7,4 +7,4 @@
 
 [node name="LevelManager" type="Node" unique_id=546208029]
 script = ExtResource("1_fyn7g")
-_levelDefinitions = Array[Object]([ExtResource("2_0u5gn"), ExtResource("3_la8pf"), ExtResource("4_2krx4")])
+_levelDefinitions = Array[Object]([ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("2_0u5gn"), ExtResource("3_la8pf"), ExtResource("4_2krx4")])

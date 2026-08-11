@@ -115,13 +115,13 @@ public partial class BuildingManager : Node
 
         if (_toPlaceBuildingResource.IsAttackBuilding())
         {
-            _gridManager.HighlightGoblinOccupiedTiles();
+            _gridManager.HighlightDangerOccupiedTiles();
             _gridManager.HighlightBuildableTiles(true);
         }
         else
         {
             _gridManager.HighlightBuildableTiles();
-            _gridManager.HighlightGoblinOccupiedTiles();
+            _gridManager.HighlightDangerOccupiedTiles();
         }
 
         if (IsBuildingPlaceableAtArea(_hoveredGridArea))
