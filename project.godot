@@ -26,6 +26,7 @@ GameEvents="*res://Scenes/Autoloads/GameEvents.tscn"
 LevelManager="*res://Scenes/Autoloads/LevelManager.tscn"
 SaveManager="*uid://bacdwtv1wg28y"
 SettingsManager="*uid://2nr1n7ur6ok0"
+Cursor="*uid://bg36qp348m1j"
 
 [display]
 

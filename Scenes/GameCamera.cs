@@ -9,7 +9,7 @@ public partial class GameCamera : Camera2D
     private const float NOISE_SAMPLE_GROWTH = 0.1f;
     private const float MAX_CAMERA_OFFSET = 24f;
     private const float NOISE_FREQUENCY_MULTIPLIER = 100f;
-    private const float SHAKE_DECAY = 3.0f;
+    private const float SHAKE_DECAY = 2.0f;
 
     private readonly StringName _actionPanLeft = new("pan_left");
     private readonly StringName _actionPanRight = new("pan_right");

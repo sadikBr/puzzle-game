@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bg36qp348m1j"]
+
+[ext_resource type="Texture2D" uid="uid://d1gwnsmqg7nrr" path="res://Assets/UI/cursor.png" id="1_lnbx3"]
+[ext_resource type="Script" uid="uid://c3wihfkq6uyen" path="res://Scenes/Autoloads/Cursor.cs" id="1_q77n8"]
+
+[node name="Cursor" type="CanvasLayer" unique_id=1598505020]
+layer = 100
+script = ExtResource("1_q77n8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=93273517]
+texture = ExtResource("1_lnbx3")
+centered = false
+offset = Vector2(-24, -19)
