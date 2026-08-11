@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dtj33w4c4lxsx"]
+
+[ext_resource type="Script" uid="uid://la6pdxvrs7qa" path="res://Scenes/Managers/ResourceIndicatorManager.cs" id="1_2bfx3"]
+[ext_resource type="PackedScene" uid="uid://bd2ys4qdyhsg3" path="res://Scenes/UI/ResourceIndicator.tscn" id="2_mkjkc"]
+
+[node name="ResourceIndicatorManager" type="Node" unique_id=766288743]
+script = ExtResource("1_2bfx3")
+_resourceIndicatorScene = ExtResource("2_mkjkc")
