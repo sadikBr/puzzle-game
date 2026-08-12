@@ -40,6 +40,8 @@ public partial class GridManager : Node
     private readonly Dictionary<BuildingComponent, HashSet<Vector2I>> _dangerBuildingToTiles = [];
     private readonly Dictionary<BuildingComponent, HashSet<Vector2I>> _attackBuildingToTiles = [];
 
+    private Vector2I _goldMinePosition;
+
     public override void _Ready()
     {
         GameEvents.Instance.Connect(GameEvents.SignalName.BuildingPlaced, Callable.From<BuildingComponent>(OnBuildingPlaced));
@@ -48,6 +50,11 @@ public partial class GridManager : Node
         GameEvents.Instance.Connect(GameEvents.SignalName.BuildingDisabled, Callable.From<BuildingComponent>(OnBuildingDisabled));
         _allTileMapLayers = GetAllTileMapLayers(_baseTerrainTileMapLayer);
         MapTileMapLayersToElevationLayers();
+    }
+
+    public void SetGoldMinePosition(Vector2I position)
+    {
+        _goldMinePosition = position;
     }
 
     public (TileMapLayer, bool) GetTileCustomData(Vector2I tilePosition, string dataName)
@@ -475,7 +482,7 @@ public partial class GridManager : Node
 
     private List<Vector2I> GetResourceTilesInRadius(Rect2I tileArea, int radius)
     {
-        return GetTilesInRadius(tileArea, radius, (tilePosition) => GetTileCustomData(tilePosition, IS_WOOD).Item2);
+        return GetTilesInRadius(tileArea, radius, (tilePosition) => GetTileCustomData(tilePosition, IS_WOOD).Item2 || tilePosition == _goldMinePosition);
     }
 
     private void UpdateBuildingComponentGridState(BuildingComponent buildingComponent)
