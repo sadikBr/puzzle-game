@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://coci455l2o15i"]
 
+[ext_resource type="Script" uid="uid://dos3l8d5p4lcd" path="res://Scenes/Buildings/GoblinCamp.cs" id="1_1dtjo"]
 [ext_resource type="PackedScene" uid="uid://b7hgixlwjutyx" path="res://Scenes/Components/BuildingComponent.tscn" id="1_qwyqt"]
 [ext_resource type="PackedScene" uid="uid://ds253jiyryiim" path="res://Scenes/Components/BuildingAnimatorComponent.tscn" id="2_tb53f"]
 [ext_resource type="Texture2D" uid="uid://mbj0ux3jv6gi" path="res://Assets/Buildings/WoodTowerRed.png" id="3_awnvg"]
+[ext_resource type="Texture2D" uid="uid://ldvqja2sf0q6" path="res://Assets/Buildings/WoodTowerDestroyed.png" id="4_tb53f"]
+[ext_resource type="Texture2D" uid="uid://fhgybmr0p4xs" path="res://Assets/Effects/Fire.png" id="5_awnvg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dtjo"]
 atlas = ExtResource("3_awnvg")
@@ -38,10 +41,79 @@ animations = [{
 "loop": 1,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tb53f")
+}],
+"loop": 1,
+"name": &"destroyed",
+"speed": 5.0
 }]
 
-[node name="GoblinCamp" type="Node2D" unique_id=501821137]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mufk0"]
+atlas = ExtResource("5_awnvg")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d37r4"]
+atlas = ExtResource("5_awnvg")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eiibi"]
+atlas = ExtResource("5_awnvg")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q75tq"]
+atlas = ExtResource("5_awnvg")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8yir"]
+atlas = ExtResource("5_awnvg")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20w8u"]
+atlas = ExtResource("5_awnvg")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ht6sy"]
+atlas = ExtResource("5_awnvg")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4fii0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mufk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d37r4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eiibi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q75tq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8yir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20w8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ht6sy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="GoblinCamp" type="Node2D" unique_id=501821137 node_paths=PackedStringArray("_buildingComponent", "_animatedSprite2D", "_fireAnimatedSprite2D")]
 y_sort_enabled = true
+script = ExtResource("1_1dtjo")
+_buildingComponent = NodePath("BuildingComponent")
+_animatedSprite2D = NodePath("BuildingAnimatorComponent/AnimatedSprite2D")
+_fireAnimatedSprite2D = NodePath("BuildingAnimatorComponent/AnimatedSprite2D/FireAnimatedSprite2D")
 
 [node name="BuildingComponent" parent="." unique_id=788964477 node_paths=PackedStringArray("_buildingAnimatorComponent") instance=ExtResource("1_qwyqt")]
 _buildingResourcePath = "uid://b3xb42xaqgb7n"
@@ -50,8 +122,16 @@ _buildingAnimatorComponent = NodePath("../BuildingAnimatorComponent")
 [node name="BuildingAnimatorComponent" parent="." unique_id=441014342 instance=ExtResource("2_tb53f")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BuildingAnimatorComponent" unique_id=1736945106]
+unique_name_in_owner = true
 position = Vector2(64, 96)
 sprite_frames = SubResource("SpriteFrames_mufk0")
 autoplay = "default"
 centered = false
 offset = Vector2(-128, -160)
+
+[node name="FireAnimatedSprite2D" type="AnimatedSprite2D" parent="BuildingAnimatorComponent/AnimatedSprite2D" unique_id=1128723751]
+unique_name_in_owner = true
+position = Vector2(0, -80)
+sprite_frames = SubResource("SpriteFrames_4fii0")
+autoplay = "default"
+frame_progress = 0.8612206
