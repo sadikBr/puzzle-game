@@ -82,7 +82,7 @@ public partial class LevelSelectScreen : MarginContainer
 
     private void OnLevelSelected(int levelIndex)
     {
-        LevelManager.Instance.ChangeToLevel(levelIndex);
+        LevelManager.ChangeToLevel(levelIndex);
     }
 
     private void OnBackButtonPressed()

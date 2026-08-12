@@ -8,37 +8,42 @@ namespace Game.Autoloads;
 
 public partial class LevelManager : Node
 {
-    public static LevelManager Instance { get; private set; }
+    private static LevelManager s_instance;
 
     [Export]
     private LevelDefinitionResource[] _levelDefinitions;
 
-    private int _currentLevelIndex = 0;
+    private static int s_currentLevelIndex = 0;
 
     public override void _Notification(int what)
     {
         if (what == NotificationSceneInstantiated)
         {
-            Instance = this;
+            s_instance = this;
         }
     }
 
     public static LevelDefinitionResource[] GetLevelDefinitions()
     {
-        return [.. Instance._levelDefinitions];
+        return [.. s_instance._levelDefinitions];
     }
 
-    public void ChangeToLevel(int levelIndex)
+    public static bool IsLastLevel()
     {
-        if (levelIndex >= _levelDefinitions.Length || levelIndex < 0) return;
-        _currentLevelIndex = levelIndex;
-
-        var levelDefinition = _levelDefinitions[_currentLevelIndex];
-        GetTree().ChangeSceneToFile(levelDefinition.LevelScenePath);
+        return s_currentLevelIndex == s_instance._levelDefinitions.Length - 1;
     }
 
-    public void ChangeToNextLevel()
+    public static void ChangeToLevel(int levelIndex)
     {
-        ChangeToLevel(_currentLevelIndex + 1);
+        if (levelIndex >= s_instance._levelDefinitions.Length || levelIndex < 0) return;
+        s_currentLevelIndex = levelIndex;
+
+        var levelDefinition = s_instance._levelDefinitions[s_currentLevelIndex];
+        s_instance.GetTree().ChangeSceneToFile(levelDefinition.LevelScenePath);
+    }
+
+    public static void ChangeToNextLevel()
+    {
+        ChangeToLevel(s_currentLevelIndex + 1);
     }
 }
